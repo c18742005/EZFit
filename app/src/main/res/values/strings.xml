@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EZ Fit</string>
+    <string name="welcome">Welcome to</string>
+    <string name="workout">Track Workout</string>
+    <string name="run">Track Run</string>
+    <string name="metrics">View Metrics</string>
+    <string name="details">Personal Details</string>
+    <string name="pictures">Progress Pictures</string>
+</resources>
