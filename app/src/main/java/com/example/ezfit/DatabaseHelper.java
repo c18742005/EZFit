@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_WORKOUT_DURATION = "workout_duration";
     public static final String KEY_DATE = "workout_date";
     public static final String KEY_WORKOUT_NAME = "workout_name";
+    public static final String KEY_WORKOUT_USER_ID = "workout_user_id";
 
     public static final String KEY_EXERCISE_NAME = "exercise_name";
 
