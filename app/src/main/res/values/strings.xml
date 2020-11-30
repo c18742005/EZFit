@@ -6,4 +6,7 @@
     <string name="metrics">View Metrics</string>
     <string name="details">Personal Details</string>
     <string name="pictures">Progress Pictures</string>
+    <string name="updateDetails">Update Details</string>
+    <string name="cancel">Cancel</string>
+    <string name="goBack">Return</string>
 </resources>

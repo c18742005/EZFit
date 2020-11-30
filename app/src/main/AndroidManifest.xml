@@ -16,6 +16,54 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".PersonalDetails">
+            <intent-filter>
+                <action android:name=".PersonalDetails" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".UpdateDetails">
+            <intent-filter>
+                <action android:name=".UpdateDetails" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".TrackWorkout">
+            <intent-filter>
+                <action android:name=".TrackWorkout" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".TrackRun">
+            <intent-filter>
+                <action android:name=".TrackRun" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ViewMetrics">
+            <intent-filter>
+                <action android:name=".ViewMetrics" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".WorkoutHistory">
+            <intent-filter>
+                <action android:name=".ViewMetrics" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".RunHistory">
+            <intent-filter>
+                <action android:name=".ViewMetrics" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ProgressPictures">
+            <intent-filter>
+                <action android:name=".ProgressPictures" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

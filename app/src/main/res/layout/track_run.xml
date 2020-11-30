@@ -5,66 +5,72 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimaryDark"
-        android:text="@string/welcome" />
+    tools:context=".TrackRun">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:text="@string/app_name"
+        android:text="@string/run"
         android:textColor="@color/colorPrimary"
         android:textAllCaps="true"
         android:textStyle="bold"
-        android:textSize="50sp"/>
+        android:textSize="30sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Distance"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:text="0.0 Km"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Time"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="00:00:00"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"/>
 
     <Button
-        android:id="@+id/details"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="@string/details"
+        android:text="Start"
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorPrimaryLight" />
 
     <Button
-        android:id="@+id/trackWorkout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="@string/workout"
+        android:text="Save Run"
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorPrimaryLight" />
 
     <Button
-        android:id="@+id/trackRun"
+        android:id="@id/goBack"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="@string/run"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@color/colorPrimaryLight" />
-
-    <Button
-        android:id="@+id/viewMetrics"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/metrics"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@color/colorPrimaryLight" />
-
-    <Button
-        android:id="@+id/progressPictures"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="@string/pictures"
+        android:text="@string/goBack"
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorPrimaryLight" />
 
