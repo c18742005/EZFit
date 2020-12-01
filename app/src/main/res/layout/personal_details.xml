@@ -34,6 +34,7 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Display Name"
@@ -60,6 +61,7 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/user_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Display Age"
@@ -86,6 +88,7 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/user_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Display Gender"
@@ -112,6 +115,7 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/user_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Display Weight"
@@ -138,6 +142,7 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/user_height"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Display Height"
@@ -164,6 +169,7 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/user_bmi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Display BMI"
@@ -190,6 +196,7 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/user_body_fat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Display Body Fat %"

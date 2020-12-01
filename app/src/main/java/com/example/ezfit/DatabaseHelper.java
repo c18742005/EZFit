@@ -1,5 +1,6 @@
 package com.example.ezfit;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -83,8 +84,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        ContentValues args = new ContentValues();
+        args.put(KEY_USERNAME, "Unknown");
+        args.put(KEY_AGE, 0);
+        args.put(KEY_WEIGHT, 0.0);
+        args.put(KEY_GENDER, "Unknown");
+        args.put(KEY_HEIGHT, 0.0);
+        args.put(KEY_BODY_FAT, 0.0);
+        args.put(KEY_BMI, 0.0);
+
         // The “Database_create” string below needs to contain the SQL statement needed to create the dB
         db.execSQL(DATABASE_CREATE_USER_TABLE);
+        db.insert("User", null, args);
         db.execSQL(DATABASE_CREATE_WORKOUT_TABLE);
         db.execSQL(DATABASE_CREATE_EXERCISE_IN_WORKOUT_TABLE);
     }
