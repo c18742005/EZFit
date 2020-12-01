@@ -28,12 +28,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="# Weekly Workouts:"
+            android:text="Workouts Completed:"
             android:layout_weight="1"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/num_workouts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Display Number of workouts"
@@ -54,15 +55,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="# Weekly Runs:"
+            android:text="Runs Completed:"
             android:layout_weight="1"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/num_runs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Display Number of Weekly Runs"
+            android:text="Runs Completed"
             android:layout_weight="2"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
@@ -80,15 +82,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Avg Lifted Per Session:"
+            android:text="Avg Workout Time:"
             android:layout_weight="1"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/avg_workout_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Display Average Lifted"
+            android:text="Display Average Time"
             android:layout_weight="2"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
@@ -106,38 +109,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Avg Distance Covered:"
+            android:text="Avg Run Time:"
             android:layout_weight="1"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Display Average Distance"
-            android:layout_weight="2"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginLeft="10dp"
-            android:textSize="18sp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="left"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="25dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Average Session Time:"
-            android:layout_weight="1"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"/>
-
-        <TextView
+            android:id="@+id/avg_run_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Display Average Time"

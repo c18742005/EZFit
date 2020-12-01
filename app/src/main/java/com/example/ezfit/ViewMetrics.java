@@ -4,14 +4,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import java.sql.SQLException;
 
 public class ViewMetrics extends AppCompatActivity {
+    private DatabaseManager dbManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_metrics);
+
+        dbManager = new DatabaseManager(this);
+
+        try {
+            dbManager.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        TextView numWorkouts = (TextView) findViewById(R.id.num_workouts);
+        numWorkouts.setText(Integer.toString(dbManager.countWorkouts("workout")));
+        TextView numRuns = (TextView) findViewById(R.id.num_runs);
+        numRuns.setText(Integer.toString(dbManager.countWorkouts("run")));
+        TextView avgWorkoutTime = (TextView) findViewById(R.id.avg_workout_time);
+        avgWorkoutTime.setText(Integer.toString(dbManager.getAverageSessionTime("workout")) + " minutes");
+        TextView avgRunTime = (TextView) findViewById(R.id.avg_run_time);
+        avgRunTime.setText(Integer.toString(dbManager.getAverageSessionTime("run")) + " minutes");
+
+        dbManager.close();
 
         // Code to control what happens when the workout history button is clicked
         Button workoutButton = (Button) findViewById(R.id.workoutHistory);

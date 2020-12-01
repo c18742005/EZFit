@@ -59,6 +59,7 @@ public class PersonalDetails extends AppCompatActivity {
         );
     }
 
+    // Method to control what happens when the activity is resumed
     protected void onResume() {
         super.onResume();
 
@@ -77,7 +78,7 @@ public class PersonalDetails extends AppCompatActivity {
         setAttributes(cursor);
     }
 
-    // Method to set show the user their details
+    // Method to set and show the user their details
     public void setAttributes(Cursor cursor) {
         TextView name = (TextView) findViewById(R.id.user_name);
         name.setText(cursor.getString(cursor.getColumnIndex("user_name")));

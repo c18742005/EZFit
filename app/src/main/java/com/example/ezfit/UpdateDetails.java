@@ -1,6 +1,5 @@
 package com.example.ezfit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +33,6 @@ public class UpdateDetails extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         EditText name = (EditText) findViewById(R.id.getName);
                         EditText age = (EditText) findViewById(R.id.getAge);
                         EditText gender = (EditText) findViewById(R.id.getGender);

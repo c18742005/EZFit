@@ -28,6 +28,7 @@ import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_WEIGHT;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_DURATION;
 import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_ID;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_ID;
+import static com.example.ezfit.DatabaseHelper.DATABASE_NAME;
 
 public class DatabaseManager {
     Context context;
@@ -170,5 +171,26 @@ public class DatabaseManager {
     public boolean removeExerciseByWorkoutID(int workout_id) {
 
         return myDatabase.delete("Exercise", KEY_WORKOUT_ID + "=" + workout_id, null) > 0;
+    }
+
+    public int countWorkouts(String workout_type) {
+        Cursor cursor = myDatabase.rawQuery("SELECT * FROM Workout WHERE workout_type=?", new String[] {workout_type});
+
+        return cursor.getCount();
+    }
+
+    public int getAverageSessionTime(String workout_type) {
+        int totalTime = 0;
+        Cursor cursor = myDatabase.rawQuery("SELECT SUM(" + KEY_WORKOUT_DURATION + ") as Time FROM Workout WHERE workout_type=?", new String[] {workout_type});
+
+        if (cursor.moveToFirst()) {
+            totalTime = cursor.getInt(cursor.getColumnIndex("Time"));
+        }
+
+        if(countWorkouts(workout_type) > 0) {
+            return totalTime / countWorkouts(workout_type);
+        } else {
+            return 0;
+        }
     }
 }
