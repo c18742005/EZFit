@@ -39,6 +39,7 @@
                 android:textSize="18sp"/>
 
             <EditText
+                android:id="@+id/getName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter Name"
@@ -65,6 +66,7 @@
                 android:textSize="18sp"/>
 
             <EditText
+                android:id="@+id/getAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter Age"
@@ -91,6 +93,7 @@
                 android:textSize="18sp"/>
 
             <EditText
+                android:id="@+id/getGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter Gender"
@@ -117,6 +120,7 @@
                 android:textSize="18sp"/>
 
             <EditText
+                android:id="@+id/getWeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter Weight in Kg"
@@ -143,6 +147,7 @@
                 android:textSize="18sp"/>
 
             <EditText
+                android:id="@+id/getHeight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter Height in cm"
@@ -169,6 +174,7 @@
                 android:textSize="18sp"/>
 
             <EditText
+                android:id="@+id/getBmi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter BMI"
@@ -195,6 +201,7 @@
                 android:textSize="18sp"/>
 
             <EditText
+                android:id="@+id/getBodyFat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter Body Fat %"
@@ -205,6 +212,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/saveButton"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

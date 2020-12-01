@@ -59,6 +59,24 @@ public class PersonalDetails extends AppCompatActivity {
         );
     }
 
+    protected void onResume() {
+        super.onResume();
+
+        dbManager = new DatabaseManager(this);
+
+        try {
+            dbManager.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Cursor cursor = dbManager.getUserDetails();
+
+        dbManager.close();
+
+        setAttributes(cursor);
+    }
+
     // Method to set show the user their details
     public void setAttributes(Cursor cursor) {
         TextView name = (TextView) findViewById(R.id.user_name);
