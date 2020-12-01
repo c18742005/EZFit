@@ -22,7 +22,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_WORKOUT_USER_ID = "workout_user_id";
 
     public static final String KEY_EXERCISE_NAME = "exercise_name";
-
     public static final String KEY_AVG_SPEED = "exercise_avgspeed";
     public static final String KEY_DISTANCE = "exercise_distance";
     public static final String KEY_SETS = "exercise_sets";
@@ -60,16 +59,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "   FOREIGN KEY (workout_user_id)" +
                     "   REFERENCES User(_id));";
 
-    // This is the string containing the SQL database create statement for the workout table
-    private static final String DATABASE_CREATE_EXERCISE_TABLE =
-            "create table Exercise"  +
-                    " (_id integer primary key autoincrement, " +
-                    "exercise_name text not null);";
-
     // This is the string containing the SQL database create statement for the exercises in a workout table
     private static final String DATABASE_CREATE_EXERCISE_IN_WORKOUT_TABLE =
             "create table Exercise_In_Workout"  +
                     " (_id integer primary key autoincrement, " +
+                    "exercise_name text not null," +
                     "exercise_avgspeed real, " +
                     "exercise_distance real, "  +
                     "exercise_sets integer," +
@@ -80,10 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "exercise_exercise_id integer not null," +
                     "CONSTRAINT fk_workout" +
                     "   FOREIGN KEY (exercise_workout_id)" +
-                    "   REFERENCES Workout(_id)," +
-                    "CONSTRAINT fk_exercise" +
-                    "   FOREIGN KEY (exercise_exercise_id)" +
-                    "   REFERENCES Exercise(_id));";
+                    "   REFERENCES Workout(_id));";
 
     // constructor for your dB helper class. This code is standard. You’ve set up the parameter values for the constructor already…database name,etc
     public DatabaseHelper(Context context) {
@@ -95,7 +86,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // The “Database_create” string below needs to contain the SQL statement needed to create the dB
         db.execSQL(DATABASE_CREATE_USER_TABLE);
         db.execSQL(DATABASE_CREATE_WORKOUT_TABLE);
-        db.execSQL(DATABASE_CREATE_EXERCISE_TABLE);
         db.execSQL(DATABASE_CREATE_EXERCISE_IN_WORKOUT_TABLE);
     }
 

@@ -83,6 +83,7 @@ public class DatabaseManager {
                         null,
                         null,
                         null);
+
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
@@ -90,56 +91,84 @@ public class DatabaseManager {
         return mCursor;
     }
 
-    //---deletes a particular contact person---
-    public boolean deleteTask(long rowId) {
-        // delete statement.  If any rows deleted (i.e. >0), returns true
-        return myDatabase.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
+    // Return workout or run history from the database
+    public Cursor getWorkoutHistory(String workout_type) {
+        return myDatabase.query(true, "Workout", new String[] {
+                                KEY_ROWID,
+                                KEY_TYPE,
+                                KEY_WORKOUT_DURATION,
+                                KEY_DATE,
+                        },
+                        KEY_TYPE + "=" + workout_type,
+                        null,
+                        null,
+                        null,
+                        KEY_DATE,
+                        null);
     }
 
-    //---retrieves all the rows ---
-    public Cursor getAllWorkouts() {
-        return myDatabase.query("User", new String[] {
+    // Add a workout to the database
+    public long addWorkout(String workout_type, int workout_duration, String date, String workout_name) {
+        ContentValues args = new ContentValues();
+        args.put(KEY_TYPE, workout_type);
+        args.put(KEY_WORKOUT_DURATION, workout_duration);
+        args.put(KEY_DATE, date);
+        args.put(KEY_WORKOUT_NAME, workout_name);
+
+        return myDatabase.insert("Workout", null, args);
+    }
+
+    public boolean deleteWorkout(int workout_id) {
+
+        return myDatabase.delete("Workout", KEY_ROWID + "=" + workout_id, null) > 0;
+    }
+
+    // Get exercises in a workout
+    public Cursor getExercisesInWorkout(int workout_id) {
+        return myDatabase.query(true, "Exercise_In_Workout", new String[] {
                         KEY_ROWID,
-                        KEY_WORKOUT_DURATION,
-                        KEY_DATE,
-                        KEY_WORKOUT_NAME},
-                KEY_TYPE + "=" + "workout",
+                        KEY_EXERCISE_NAME,
+                        KEY_AVG_SPEED,
+                        KEY_DISTANCE,
+                        KEY_SETS,
+                        KEY_REPS,
+                        KEY_EXERCISE_WEIGHT,
+                        KEY_EXERCISE_DURATION,
+                        KEY_WORKOUT_ID,
+                        KEY_EXERCISE_ID
+                },
+                KEY_WORKOUT_ID + "=" + workout_id,
                 null,
                 null,
                 null,
+                KEY_ROWID,
                 null);
     }
 
-    //---retrieves a particular contact person---
-    public Cursor getTask(long rowId) throws SQLException {
-        Cursor mCursor =
-                myDatabase.query(true, DATABASE_TABLE, new String[] {
-                                KEY_ROWID,
-                                KEY_TASKNAME,
-                                KEY_TASKDESC,
-                                KEY_COMPLETESTATUS
-                        },
-                        KEY_ROWID + "=" + rowId,
-                        null,
-                        null,
-                        null,
-                        null,
-                        null);
-        if (mCursor != null) {
-            mCursor.moveToFirst();
-        }
+    // Add a workout to the database
+    public long addExercise(int workout_id, String exercise_name, float avg_speed, float distance, int sets, int reps, float weight_lifted, int duration) {
+        ContentValues args = new ContentValues();
+        args.put(KEY_WORKOUT_ID, workout_id);
+        args.put(KEY_EXERCISE_NAME, exercise_name);
+        args.put(KEY_AVG_SPEED, avg_speed);
+        args.put(KEY_DISTANCE, distance);
+        args.put(KEY_SETS, sets);
+        args.put(KEY_REPS, reps);
+        args.put(KEY_EXERCISE_WEIGHT, weight_lifted);
+        args.put(KEY_EXERCISE_DURATION, duration);
 
-        return mCursor;
+        return myDatabase.insert("Exercise", null, args);
     }
 
-    //---updates a contact person---
-    public boolean updateTask(long rowId, String taskName,
-                              String taskDesc, String completeStatus) {
-        ContentValues args = new ContentValues();
-        args.put(KEY_TASKNAME, taskName);
-        args.put(KEY_TASKDESC, taskDesc);
-        args.put(KEY_COMPLETESTATUS, completeStatus);
+    // Remove an exercise from the database by its id
+    public boolean removeExerciseByExerciseID(int exercise_id) {
 
-        return myDatabase.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+        return myDatabase.delete("Exercise", KEY_ROWID + "=" + exercise_id, null) > 0;
+    }
+
+    // Remove exercises from the database by the workout id that they are in
+    public boolean removeExerciseByWorkoutID(int workout_id) {
+
+        return myDatabase.delete("Exercise", KEY_WORKOUT_ID + "=" + workout_id, null) > 0;
     }
 }
