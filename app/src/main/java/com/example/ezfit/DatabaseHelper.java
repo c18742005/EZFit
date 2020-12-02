@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "exercise_sets integer," +
                     "exercise_reps integer," +
                     "exercise_weight real," +
-                    "exercise_duration integer not null," +
+                    "exercise_duration integer," +
                     "exercise_workout_id integer not null," +
                     "exercise_exercise_id integer not null," +
                     "CONSTRAINT fk_workout" +

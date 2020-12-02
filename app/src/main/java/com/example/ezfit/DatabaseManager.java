@@ -18,7 +18,6 @@ import static com.example.ezfit.DatabaseHelper.KEY_TYPE;
 import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_DURATION;
 import static com.example.ezfit.DatabaseHelper.KEY_DATE;
 import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_NAME;
-import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_USER_ID;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_NAME;
 import static com.example.ezfit.DatabaseHelper.KEY_AVG_SPEED;
 import static com.example.ezfit.DatabaseHelper.KEY_DISTANCE;
@@ -28,7 +27,6 @@ import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_WEIGHT;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_DURATION;
 import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_ID;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_ID;
-import static com.example.ezfit.DatabaseHelper.DATABASE_NAME;
 
 public class DatabaseManager {
     Context context;
