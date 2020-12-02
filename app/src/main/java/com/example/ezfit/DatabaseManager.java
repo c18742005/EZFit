@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import java.sql.SQLException;
 
+import static com.example.ezfit.DatabaseHelper.KEY_BODY_PARTS;
 import static com.example.ezfit.DatabaseHelper.KEY_ROWID;
 import static com.example.ezfit.DatabaseHelper.KEY_USERNAME;
 import static com.example.ezfit.DatabaseHelper.KEY_AGE;
@@ -27,6 +28,7 @@ import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_WEIGHT;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_DURATION;
 import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_ID;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_ID;
+import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_USER_ID;
 
 public class DatabaseManager {
     Context context;
@@ -107,14 +109,16 @@ public class DatabaseManager {
     }
 
     // Add a workout to the database
-    public long addWorkout(String workout_type, int workout_duration, String date, String workout_name) {
+    public int addWorkout(String workout_type, int workout_duration, String workout_name, String bodyparts) {
         ContentValues args = new ContentValues();
         args.put(KEY_TYPE, workout_type);
+        args.put(KEY_BODY_PARTS, bodyparts);
         args.put(KEY_WORKOUT_DURATION, workout_duration);
-        args.put(KEY_DATE, date);
+        args.put(KEY_DATE, "now");
         args.put(KEY_WORKOUT_NAME, workout_name);
+        args.put(KEY_WORKOUT_USER_ID, 1);
 
-        return myDatabase.insert("Workout", null, args);
+        return (int) myDatabase.insert("Workout", null, args);
     }
 
     public boolean deleteWorkout(int workout_id) {
@@ -156,19 +160,19 @@ public class DatabaseManager {
         args.put(KEY_EXERCISE_WEIGHT, weight_lifted);
         args.put(KEY_EXERCISE_DURATION, duration);
 
-        return myDatabase.insert("Exercise", null, args);
+        return myDatabase.insert("Exercise_In_Workout", null, args);
     }
 
     // Remove an exercise from the database by its id
     public boolean removeExerciseByExerciseID(int exercise_id) {
 
-        return myDatabase.delete("Exercise", KEY_ROWID + "=" + exercise_id, null) > 0;
+        return myDatabase.delete("Exercise_In_Workout", KEY_ROWID + "=" + exercise_id, null) > 0;
     }
 
     // Remove exercises from the database by the workout id that they are in
     public boolean removeExerciseByWorkoutID(int workout_id) {
 
-        return myDatabase.delete("Exercise", KEY_WORKOUT_ID + "=" + workout_id, null) > 0;
+        return myDatabase.delete("Exercise_In_Workout", KEY_WORKOUT_ID + "=" + workout_id, null) > 0;
     }
 
     public int countWorkouts(String workout_type) {

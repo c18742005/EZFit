@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_BMI = "user_bmi";
 
     public static final String KEY_TYPE = "workout_type";
+    public static final String KEY_BODY_PARTS = "bodyparts";
     public static final String KEY_WORKOUT_DURATION = "workout_duration";
     public static final String KEY_DATE = "workout_date";
     public static final String KEY_WORKOUT_NAME = "workout_name";
@@ -52,6 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "create table Workout"  +
                     " (_id integer primary key autoincrement, " +
                     "workout_type text not null, " +
+                    "bodyparts text not null," +
                     "workout_duration integer not null, "  +
                     "workout_date date not null," +
                     "workout_name text not null," +
@@ -72,7 +74,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "exercise_weight real," +
                     "exercise_duration integer," +
                     "exercise_workout_id integer not null," +
-                    "exercise_exercise_id integer not null," +
                     "CONSTRAINT fk_workout" +
                     "   FOREIGN KEY (exercise_workout_id)" +
                     "   REFERENCES Workout(_id));";

@@ -68,6 +68,12 @@ public class TrackWorkout extends ListActivity {
                     @Override
                     public void onClick(View v) {
                         Intent switchScreens = new Intent(TrackWorkout.this, SaveWorkout.class);
+
+                        switchScreens.putExtra("names", exerciseNames);
+                        switchScreens.putExtra("sets", exerciseSets);
+                        switchScreens.putExtra("reps", exerciseReps);
+                        switchScreens.putExtra("weights", exerciseWeights);
+
                         startActivity(switchScreens);
                     }
                 }
