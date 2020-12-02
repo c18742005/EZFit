@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TrackWorkout"
-    android:gravity="center">
+    android:gravity="center"
+    tools:context=".SaveWorkout">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:text="@string/workout"
+        android:text="Save Workout"
         android:textColor="@color/colorPrimary"
         android:textAllCaps="true"
         android:textStyle="bold"
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Exercise Name:"
+            android:text="Workout Name:"
             android:layout_weight="1"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"/>
@@ -36,7 +36,33 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter Exercise Name"
+            android:text="Enter Workout Name"
+            android:layout_weight="2"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="25dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Workout Duration:"
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Workout Duration"
             android:layout_weight="2"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
@@ -62,59 +88,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter Bodyparts Trained"
-            android:layout_weight="2"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginLeft="10dp"
-            android:textSize="18sp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="left"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="25dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sets Completed:"
-            android:layout_weight="1"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter Sets Completed"
-            android:layout_weight="2"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginLeft="10dp"
-            android:textSize="18sp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="left"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="25dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reps:"
-            android:layout_weight="1"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter Reps Per Set"
+            android:text="Enter Bodyparts Trained:"
             android:layout_weight="2"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
@@ -122,23 +96,6 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Add Exercise to Workout"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@color/colorPrimaryLight" />
-
-    <ListView
-        android:id="@+id/exercise_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorPrimaryDark"
-        android:dividerHeight="2dp"
-        android:layout_marginBottom="20dp"/>
-
-    <Button
-        android:id="@+id/save_workout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"

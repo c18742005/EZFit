@@ -64,6 +64,12 @@
                 <action android:name=".ProgressPictures" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".SaveWorkout">
+            <intent-filter>
+                <action android:name=".SaveWorkout" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
