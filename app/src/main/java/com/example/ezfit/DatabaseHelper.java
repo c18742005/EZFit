@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "create table Workout"  +
                     " (_id integer primary key autoincrement, " +
                     "workout_type text not null, " +
-                    "bodyparts text not null," +
+                    "bodyparts text," +
                     "workout_duration integer not null, "  +
                     "workout_date date not null," +
                     "workout_name text not null," +
