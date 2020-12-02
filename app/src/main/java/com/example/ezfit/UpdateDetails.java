@@ -1,5 +1,6 @@
 package com.example.ezfit;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,12 @@ public class UpdateDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        Cursor cursor = dbManager.getUserDetails();
+
+        dbManager.close();
+
+        setAttributes(cursor);
+
         // Code to control what happens when save button is clicked
         Button saveButton = (Button) findViewById(R.id.saveButton);
 
@@ -33,6 +40,14 @@ public class UpdateDetails extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        dbManager = new DatabaseManager(UpdateDetails.this);
+
+                        try {
+                            dbManager.open();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
                         EditText name = (EditText) findViewById(R.id.getName);
                         EditText age = (EditText) findViewById(R.id.getAge);
                         EditText gender = (EditText) findViewById(R.id.getGender);
@@ -63,5 +78,23 @@ public class UpdateDetails extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    // Method to show the user their details
+    public void setAttributes(Cursor cursor) {
+        EditText name = (EditText) findViewById(R.id.getName);
+        name.setText(cursor.getString(cursor.getColumnIndex("user_name")));
+        EditText age = (EditText) findViewById(R.id.getAge);
+        age.setText(cursor.getString(cursor.getColumnIndex("user_age")));
+        EditText gender = (EditText) findViewById(R.id.getGender);
+        gender.setText(cursor.getString(cursor.getColumnIndex("user_gender")));
+        EditText weight = (EditText) findViewById(R.id.getWeight);
+        weight.setText(cursor.getString(cursor.getColumnIndex("user_weight")));
+        EditText height = (EditText) findViewById(R.id.getHeight);
+        height.setText(cursor.getString(cursor.getColumnIndex("user_height")));
+        EditText bmi = (EditText) findViewById(R.id.getBmi);
+        bmi.setText(cursor.getString(cursor.getColumnIndex("user_bmi")));
+        EditText bodyFat = (EditText) findViewById(R.id.getBodyFat);
+        bodyFat.setText(cursor.getString(cursor.getColumnIndex("user_bodyfat")));
     }
 }
