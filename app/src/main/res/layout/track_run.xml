@@ -42,6 +42,7 @@
         android:textSize="25sp"/>
 
     <TextView
+        android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -49,13 +50,34 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp"/>
 
-    <Button
-        android:layout_width="300dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Start"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@color/colorPrimaryLight" />
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Start"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryLight" />
+
+        <Button
+            android:id="@+id/stop_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Stop"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryLight" />
+    </LinearLayout>
 
     <Button
         android:layout_width="300dp"
