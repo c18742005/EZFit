@@ -2,25 +2,22 @@ package com.example.ezfit;
 
 import android.app.ListActivity;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import java.sql.SQLException;
 
-public class WorkoutHistory extends ListActivity {
+public class WorkoutDetails extends ListActivity {
     private DatabaseManager dbManager;
     private ClientCursorAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.workout_history);
+        setContentView(R.layout.workout_details);
 
         dbManager = new DatabaseManager(this);
 
@@ -30,7 +27,9 @@ public class WorkoutHistory extends ListActivity {
             e.printStackTrace();
         }
 
-        myAdapter = new ClientCursorAdapter(this, R.layout.workout_row, dbManager.getWorkoutHistory("workout"), 0);
+        int workoutID = (int) getIntent().getExtras().getLong("rowID");
+
+        myAdapter = new ClientCursorAdapter(this, R.layout.workout_row, dbManager.getExercisesInWorkout(workoutID), 0);
         setListAdapter(myAdapter);
 
         dbManager.close();
@@ -56,27 +55,17 @@ public class WorkoutHistory extends ListActivity {
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            TextView workoutName = (TextView) view.findViewById(R.id.col1);
-            workoutName.setText(cursor.getString(cursor.getColumnIndex("workout_name")));
+            TextView exerciseName = (TextView) view.findViewById(R.id.col1);
+            exerciseName.setText(cursor.getString(cursor.getColumnIndex("exercise_name")));
 
-            TextView workoutDate = (TextView) view.findViewById(R.id.col2);
-            workoutDate.setText(cursor.getString(cursor.getColumnIndex("workout_date")));
+            TextView sets = (TextView) view.findViewById(R.id.col2);
+            sets.setText(cursor.getString(cursor.getColumnIndex("exercise_sets")));
 
-            TextView workoutDuration = (TextView) view.findViewById(R.id.col3);
-            workoutDuration.setText(cursor.getString(cursor.getColumnIndex("workout_duration")));
+            TextView reps = (TextView) view.findViewById(R.id.col3);
+            reps.setText(cursor.getString(cursor.getColumnIndex("exercise_reps")));
 
-            TextView bodyParts = (TextView) view.findViewById(R.id.col4);
-            bodyParts.setText(cursor.getString(cursor.getColumnIndex("bodyparts")));
+            TextView weight = (TextView) view.findViewById(R.id.col4);
+            weight.setText(cursor.getString(cursor.getColumnIndex("exercise_weight")));
         }
-    }
-
-    // when a list item is clicked open a new activity and display the workout details
-    public void onListItemClick(ListView parent, View v, int position, long id) {
-        Cursor data = (Cursor) myAdapter.getItem(position);
-
-        Intent switchScreens = new Intent(WorkoutHistory.this, WorkoutDetails.class);
-        switchScreens.putExtra("rowID", id);
-
-        startActivity(switchScreens);
     }
 }

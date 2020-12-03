@@ -137,7 +137,9 @@ public class DatabaseManager {
 
     // Get exercises in a workout
     public Cursor getExercisesInWorkout(int workout_id) {
-        return myDatabase.query(true, "Exercise_In_Workout", new String[] {
+        String id = Integer.toString(workout_id);
+
+        return myDatabase.query("Exercise_In_Workout", new String[] {
                         KEY_ROWID,
                         KEY_EXERCISE_NAME,
                         KEY_AVG_SPEED,
@@ -145,15 +147,13 @@ public class DatabaseManager {
                         KEY_SETS,
                         KEY_REPS,
                         KEY_EXERCISE_WEIGHT,
-                        KEY_EXERCISE_DURATION,
-                        KEY_WORKOUT_ID,
-                        KEY_EXERCISE_ID
+                        KEY_EXERCISE_DURATION
                 },
-                KEY_WORKOUT_ID + "=" + workout_id,
+                KEY_WORKOUT_ID + "=?",
+                new String[]{id},
                 null,
                 null,
                 null,
-                KEY_ROWID,
                 null);
     }
 

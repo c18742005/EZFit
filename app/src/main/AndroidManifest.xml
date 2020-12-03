@@ -73,6 +73,12 @@
                 <action android:name=".SaveWorkout" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".WorkoutDetails">
+            <intent-filter>
+                <action android:name=".WorkoutDetails" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
