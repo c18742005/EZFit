@@ -104,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // If you want to change the structure of your database, e.g.
+        // If you want to change the structure of your database
 
     }
 }
