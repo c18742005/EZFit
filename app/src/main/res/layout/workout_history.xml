@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="2"
-            android:text="Duration"
+            android:text="Duration (mins)"
             android:textStyle="bold" />
 
         <TextView
@@ -51,8 +51,6 @@
             android:text="BodyParts Trained"
             android:textStyle="bold" />
     </LinearLayout>
-
-
 
     <ListView
         android:id="@android:id/list"
