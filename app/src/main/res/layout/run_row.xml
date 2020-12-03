@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/runName"
+        android:id="@+id/column1"
         android:textColor="@color/colorPrimaryDark"
         android:layout_marginLeft="20dp"
         android:layout_height="wrap_content"
@@ -14,14 +14,14 @@
         android:layout_weight="2"/>
 
     <TextView
-        android:id="@+id/runDate"
+        android:id="@+id/column2"
         android:textColor="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="2"/>
 
     <TextView
-        android:id="@+id/runDuration"
+        android:id="@+id/column3"
         android:textColor="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
