@@ -72,6 +72,8 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
                     @Override
                     public void onClick(View v) {
                         int duration = seconds / 60;
+                        float avgSpeed = (float) distance / duration;
+
 
                         dbManager = new DatabaseManager(TrackRun.this);
 
@@ -81,7 +83,9 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
                             e.printStackTrace();
                         }
 
-                        dbManager.addWorkout("run", duration, "Run", "Cardiovascular");
+                        int id = dbManager.addWorkout("run", duration, "Run", "Cardiovascular");
+
+                        dbManager.addExercise(id, "run", avgSpeed, (float) distance, 0,0,0, duration);
 
                         dbManager.close();
 

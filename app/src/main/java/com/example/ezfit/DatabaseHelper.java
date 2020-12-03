@@ -55,7 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "workout_type text not null, " +
                     "bodyparts text," +
                     "workout_duration integer not null, "  +
-                    "workout_date date not null," +
+                    "workout_date text not null," +
                     "workout_name text not null," +
                     "workout_user_id integer not null," +
                     "CONSTRAINT fk_user" +

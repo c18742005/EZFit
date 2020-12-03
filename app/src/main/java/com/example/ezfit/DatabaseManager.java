@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static com.example.ezfit.DatabaseHelper.KEY_BODY_PARTS;
 import static com.example.ezfit.DatabaseHelper.KEY_ROWID;
@@ -94,27 +96,34 @@ public class DatabaseManager {
 
     // Return workout or run history from the database
     public Cursor getWorkoutHistory(String workout_type) {
-        return myDatabase.query(true, "Workout", new String[] {
+        return myDatabase.query("Workout", new String[] {
                                 KEY_ROWID,
                                 KEY_TYPE,
+                                KEY_BODY_PARTS,
                                 KEY_WORKOUT_DURATION,
                                 KEY_DATE,
+                                KEY_WORKOUT_NAME
                         },
-                        KEY_TYPE + "=" + workout_type,
+                        KEY_TYPE + "=?",
+                                new String[]{workout_type},
                         null,
                         null,
-                        null,
-                        KEY_DATE,
+                                KEY_DATE,
                         null);
     }
 
     // Add a workout to the database
     public int addWorkout(String workout_type, int workout_duration, String workout_name, String bodyparts) {
+        // Format todays date to be added to the database
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        String date = dateFormat.format(localDate);
+
         ContentValues args = new ContentValues();
         args.put(KEY_TYPE, workout_type);
         args.put(KEY_BODY_PARTS, bodyparts);
         args.put(KEY_WORKOUT_DURATION, workout_duration);
-        args.put(KEY_DATE, "now");
+        args.put(KEY_DATE, date);
         args.put(KEY_WORKOUT_NAME, workout_name);
         args.put(KEY_WORKOUT_USER_ID, 1);
 

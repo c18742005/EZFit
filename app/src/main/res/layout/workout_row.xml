@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/exerciseName"
+        android:id="@+id/workoutName"
         android:textColor="@color/colorPrimaryDark"
         android:layout_marginLeft="20dp"
         android:layout_height="wrap_content"
@@ -14,21 +14,21 @@
         android:layout_weight="2"/>
 
     <TextView
-        android:id="@+id/exerciseSets"
+        android:id="@+id/workoutDate"
         android:textColor="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="2"/>
 
     <TextView
-        android:id="@+id/exerciseReps"
+        android:id="@+id/workoutDuration"
         android:textColor="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:layout_weight="2"/>
 
     <TextView
-        android:id="@+id/exerciseWeight"
+        android:id="@+id/bodypartsTrained"
         android:textColor="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
