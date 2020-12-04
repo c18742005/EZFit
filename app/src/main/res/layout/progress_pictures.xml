@@ -17,11 +17,27 @@
         android:textStyle="bold"
         android:textSize="30sp"/>
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="25dp" />
+
     <Button
+        android:id="@+id/takePhoto"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="Take Progress Picture"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@color/colorPrimaryLight" />
+
+    <Button
+        android:id="@+id/savePhoto"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Save Picture"
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorPrimaryLight" />
 
