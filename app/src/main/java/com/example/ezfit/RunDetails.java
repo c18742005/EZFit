@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.sql.SQLException;
 
 public class RunDetails extends ListActivity {
@@ -27,12 +29,36 @@ public class RunDetails extends ListActivity {
             e.printStackTrace();
         }
 
-        int runID = (int) getIntent().getExtras().getLong("rowID");
+        final int runID = (int) getIntent().getExtras().getLong("rowID");
 
         myAdapter = new ClientCursorAdapter(this, R.layout.run_row, dbManager.getExercisesInWorkout(runID), 0);
         setListAdapter(myAdapter);
 
         dbManager.close();
+
+        // Code to control what happens when the delete workout button is clicked
+        Button deleteButton = (Button) findViewById(R.id.deleteRun);
+
+        deleteButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            dbManager.open();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                        dbManager.removeExerciseByWorkoutID(runID);
+                        dbManager.deleteWorkout(runID);
+
+                        dbManager.close();
+
+                        Toast.makeText(RunDetails.this, "Run Deleted Successfully", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                }
+        );
 
         // Code to control what happens when the return button is clicked
         Button returnButton = (Button) findViewById(R.id.goBack);

@@ -73,4 +73,25 @@ public class ViewMetrics extends AppCompatActivity {
                 }
         );
     }
+
+    protected void onResume() {
+        super.onResume();
+
+        try {
+            dbManager.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        TextView numWorkouts = (TextView) findViewById(R.id.num_workouts);
+        numWorkouts.setText(Integer.toString(dbManager.countWorkouts("workout")));
+        TextView numRuns = (TextView) findViewById(R.id.num_runs);
+        numRuns.setText(Integer.toString(dbManager.countWorkouts("run")));
+        TextView avgWorkoutTime = (TextView) findViewById(R.id.avg_workout_time);
+        avgWorkoutTime.setText(Integer.toString(dbManager.getAverageSessionTime("workout")) + " minutes");
+        TextView avgRunTime = (TextView) findViewById(R.id.avg_run_time);
+        avgRunTime.setText(Integer.toString(dbManager.getAverageSessionTime("run")) + " minutes");
+
+        dbManager.close();
+    }
 }

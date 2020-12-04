@@ -198,7 +198,6 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
                 distChanged = true;
             }
         }
-
     }
 
     public void onProviderDisabled(String provider) {}

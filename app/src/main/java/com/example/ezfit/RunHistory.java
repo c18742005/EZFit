@@ -75,4 +75,19 @@ public class RunHistory extends ListActivity {
 
         startActivity(switchScreens);
     }
+
+    protected void onResume() {
+        super.onResume();
+
+        try {
+            dbManager.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        myAdapter = new ClientCursorAdapter(this, R.layout.run_row, dbManager.getWorkoutHistory("run"), 0);
+        setListAdapter(myAdapter);
+
+        dbManager.close();
+    }
 }

@@ -51,7 +51,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:divider="@color/colorPrimaryDark"
-        android:dividerHeight="2dp" />
+        android:dividerHeight="2dp"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:id="@id/goBack"
@@ -59,6 +60,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="@string/goBack"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@color/colorPrimaryLight" />
+
+    <Button
+        android:id="@+id/deleteRun"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Delete Run"
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorPrimaryLight" />
 

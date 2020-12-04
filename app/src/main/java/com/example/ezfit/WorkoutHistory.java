@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ResourceCursorAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import java.sql.SQLException;
 
@@ -78,5 +77,20 @@ public class WorkoutHistory extends ListActivity {
         switchScreens.putExtra("rowID", id);
 
         startActivity(switchScreens);
+    }
+
+    protected void onResume() {
+        super.onResume();
+
+        try {
+            dbManager.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        myAdapter = new ClientCursorAdapter(this, R.layout.workout_row, dbManager.getWorkoutHistory("workout"), 0);
+        setListAdapter(myAdapter);
+
+        dbManager.close();
     }
 }
