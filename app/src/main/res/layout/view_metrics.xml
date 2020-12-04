@@ -37,7 +37,6 @@
             android:id="@+id/num_workouts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Display Number of workouts"
             android:layout_weight="2"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
@@ -64,7 +63,6 @@
             android:id="@+id/num_runs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Runs Completed"
             android:layout_weight="2"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
@@ -91,7 +89,6 @@
             android:id="@+id/avg_workout_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Display Average Time"
             android:layout_weight="2"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
@@ -118,7 +115,6 @@
             android:id="@+id/avg_run_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Display Average Time"
             android:layout_weight="2"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginLeft="10dp"
@@ -151,5 +147,4 @@
         android:text="@string/goBack"
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorPrimaryLight" />
-
 </LinearLayout>

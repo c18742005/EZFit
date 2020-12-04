@@ -3,8 +3,6 @@ package com.example.ezfit;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,35 +10,28 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 public class TrackRun extends AppCompatActivity implements LocationListener {
     private DatabaseManager dbManager;
 
+    // Variables needed for the stopwatch
     private int seconds = 0;
+
+    // Variables needed for the stopwatch and the gps tracking
     private boolean isRunning;
     private boolean wasRunning;
 
+    // Variables needed for the gps tracker
     private LocationManager locationManager;
     private long minTime = 3000;
     private float minDistance = 10;
     private static final int MY_PERMISSION_GPS = 1;
-
     private double distance = 0.0;
-    private boolean distChanged = false;
-
     private TextView distanceTravelled;
 
     @Override
@@ -49,7 +40,8 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
         setContentView(R.layout.track_run);
 
         distanceTravelled = (TextView) findViewById(R.id.distance);
-        runTimer();
+        runTimer(); // set up the stopwatch
+        setUpLocation(); // Start tracking the location of the device
 
         // Code to control what happens when the start button is clicked
         Button startButton = (Button) findViewById(R.id.start_button);
@@ -58,7 +50,7 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setUpLocation();
+                        // Start running the stopwatch and tracking location
                         isRunning = true;
                     }
                 }
@@ -71,10 +63,18 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Get the duration of the run in minutes and the average speed
                         int duration = seconds / 60;
+
+                        // If duration is 0 minutes then increment to 1
+                        if (duration == 0) {
+                            duration = 1;
+                        }
+
+                        // Get the average speed of the run
                         float avgSpeed = (float) distance / duration;
 
-
+                        // Get a connection to the DB manager
                         dbManager = new DatabaseManager(TrackRun.this);
 
                         try {
@@ -83,8 +83,10 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
                             e.printStackTrace();
                         }
 
+                        // Add the run to the database
                         int id = dbManager.addWorkout("run", duration, "Run", "Cardiovascular");
 
+                        // Add run details to the database
                         dbManager.addExercise(id, "run", avgSpeed, (float) distance, 0,0,0, duration);
 
                         dbManager.close();
@@ -102,9 +104,7 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // switch off location updates
-                        locationManager.removeUpdates(TrackRun.this);
-
+                        // Stop the stopwatch
                         wasRunning = isRunning;
                         isRunning = false;
                     }
@@ -121,106 +121,112 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
                         // switch off location updates
                         locationManager.removeUpdates(TrackRun.this);
 
+                        // Finish the activity
                         finish();
                     }
                 }
         );
     }
 
+    // Method to control what happens when activity is paused
     protected void onPause() {
         super.onPause();
 
-        // switch off location updates: to be added
+        // switch off location updates
         locationManager.removeUpdates(this);
+
+        // Stop the stopwatch
         wasRunning = isRunning;
         isRunning = false;
     }
 
+    // Method to control what happens when activity is resumed
     protected void onResume() {
         super.onResume();
 
         setUpLocation();
+
         if(wasRunning) {
             isRunning = true;
         }
     }
 
+    // Method to control the stopwatch
     private void runTimer() {
         final TextView time = (TextView) findViewById(R.id.timer);
-
         final Handler handler = new Handler();
 
         handler.post(new Runnable() {
             @Override
             public void run() {
+                // Get the number of hours, minutes and seconds a person has been running
                 int hours = seconds / 3600;
                 int mins = (seconds % 3600) / 60;
                 int secs = seconds % 60;
 
+                // Format the time to a string
                 String formatTime = String.format("%02d:%02d:%02d", hours, mins, secs);
 
+                // Set the text view to show the formatted time
                 time.setText(formatTime);
 
+                // If stopwatch is running then increment seconds
                 if(isRunning) {
                     seconds++;
                 }
 
+                // Delay the incrementation of the seconds by 1000 milliseconds
                 handler.postDelayed(this, 1000);
             }
         });
     }
 
+    // Method to set up teh location tracking service
     private void setUpLocation() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        //Check if permission exists.. if not ask the user
-        // Use the ContextCompat class' checkSelfPermission method to check
-        // and use the ActivityCompat class' requestPermissions method to prompt for permission.. see notes
-        // if....
+        // Check if activity has the permission to access the gps tracking function of the phone
+        // If not then request the permissions
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(TrackRun.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_GPS);
         }
-        else { // permission granted
+        else { // permission granted so start tracking the user
 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, this);
         }
     }
 
+    // Method to control what happens when the location changes
     public void onLocationChanged(Location location) {
-        if (location != null) {
-            if(distChanged != false) {
-                distance += 0.01;
+        // If location is not empty and user wants their distance tracked then
+        // Increment distance by 10 meters ech time a change in location is detected
+        if (location != null && isRunning == true) {
+            distance += 0.01;
 
-                String formatDistance = String.format("%.2f Km", distance);
-                distanceTravelled.setText(formatDistance);
-            } else {
-                distChanged = true;
-            }
+            // Format the distance to a string and set it to the text view
+            String formatDistance = String.format("%.2f Km", distance);
+            distanceTravelled.setText(formatDistance);
         }
     }
 
     public void onProviderDisabled(String provider) {}
-
     public void onProviderEnabled(String provider) {}
-
     public void onStatusChanged(String provider, int status, Bundle extras) {}
 
     @Override
-    // this is a callback method associated with the user having entered in their permission -
-    // the compiler will prompt you to add this call back method, when you putin the code for the permission check earlier.
-
+    // Callback method associated with the user having entered in their permissions
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSION_GPS:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // All good!
+                    // Permissions granted
                     Toast.makeText(this, "permissions granted.", Toast.LENGTH_LONG).show();
                 } else {
-                    // show a Toast message to say you need to switch on permissions
-                    // to be added:
+                    // Tell user they need to allow permissions
                     Toast.makeText(this, "You must switch on location permissions.", Toast.LENGTH_LONG).show();
                 }
+
                 break;
         }
     }

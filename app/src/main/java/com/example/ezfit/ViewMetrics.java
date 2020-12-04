@@ -16,20 +16,26 @@ public class ViewMetrics extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_metrics);
 
+        // Get connection to database manager
         dbManager = new DatabaseManager(this);
 
+        // Try to open the database connection
         try {
             dbManager.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        // Retireve metrics from the database and set them to their respective text views
         TextView numWorkouts = (TextView) findViewById(R.id.num_workouts);
         numWorkouts.setText(Integer.toString(dbManager.countWorkouts("workout")));
+
         TextView numRuns = (TextView) findViewById(R.id.num_runs);
         numRuns.setText(Integer.toString(dbManager.countWorkouts("run")));
+
         TextView avgWorkoutTime = (TextView) findViewById(R.id.avg_workout_time);
         avgWorkoutTime.setText(Integer.toString(dbManager.getAverageSessionTime("workout")) + " minutes");
+
         TextView avgRunTime = (TextView) findViewById(R.id.avg_run_time);
         avgRunTime.setText(Integer.toString(dbManager.getAverageSessionTime("run")) + " minutes");
 
@@ -42,6 +48,7 @@ public class ViewMetrics extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Create intent and switch to WorkoutHistory activity
                         Intent switchScreens = new Intent(ViewMetrics.this, WorkoutHistory.class);
                         startActivity(switchScreens);
                     }
@@ -55,6 +62,7 @@ public class ViewMetrics extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Create intent and switch to RunHistory activity
                         Intent switchScreens = new Intent(ViewMetrics.this, RunHistory.class);
                         startActivity(switchScreens);
                     }
@@ -68,27 +76,34 @@ public class ViewMetrics extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Finish the activity
                         finish();
                     }
                 }
         );
     }
 
+    // Method to control what happens when the activity is resumed
     protected void onResume() {
         super.onResume();
 
+        // Try open database connection
         try {
             dbManager.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        // Retireve metrics from the database and set them to their respective text views
         TextView numWorkouts = (TextView) findViewById(R.id.num_workouts);
         numWorkouts.setText(Integer.toString(dbManager.countWorkouts("workout")));
+
         TextView numRuns = (TextView) findViewById(R.id.num_runs);
         numRuns.setText(Integer.toString(dbManager.countWorkouts("run")));
+
         TextView avgWorkoutTime = (TextView) findViewById(R.id.avg_workout_time);
         avgWorkoutTime.setText(Integer.toString(dbManager.getAverageSessionTime("workout")) + " minutes");
+
         TextView avgRunTime = (TextView) findViewById(R.id.avg_run_time);
         avgRunTime.setText(Integer.toString(dbManager.getAverageSessionTime("run")) + " minutes");
 

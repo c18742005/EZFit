@@ -10,16 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class TrackWorkout extends ListActivity {
+    // Array lists to hold the details of each exercise
     ArrayList<String> exerciseNames = new ArrayList<>();
     ArrayList<String> exerciseSets = new ArrayList<>();
     ArrayList<String> exerciseReps = new ArrayList<>();
@@ -41,6 +36,7 @@ public class TrackWorkout extends ListActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Add the details from the edit texts to the corresponding array list
                         EditText name = (EditText) findViewById(R.id.exercise_name);
                         exerciseNames.add(name.getText().toString());
 
@@ -53,8 +49,10 @@ public class TrackWorkout extends ListActivity {
                         EditText weight = (EditText) findViewById(R.id.weight_lifted);
                         exerciseWeights.add(weight.getText().toString());
 
+                        // Clear the edit texts
                         clearText(name, sets, reps, weight);
 
+                        // Notify the adapter that the data has changed
                         myAdapter.notifyDataSetChanged();
                     }
                 }
@@ -67,13 +65,16 @@ public class TrackWorkout extends ListActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Intent to move to TrakWorkout activity
                         Intent switchScreens = new Intent(TrackWorkout.this, SaveWorkout.class);
 
+                        // Add the array lists to the extras to be sent to the new activity
                         switchScreens.putExtra("names", exerciseNames);
                         switchScreens.putExtra("sets", exerciseSets);
                         switchScreens.putExtra("reps", exerciseReps);
                         switchScreens.putExtra("weights", exerciseWeights);
 
+                        // Start the new activity
                         startActivity(switchScreens);
                     }
                 }
@@ -86,12 +87,14 @@ public class TrackWorkout extends ListActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Finish the activty
                         finish();
                     }
                 }
         );
     }
 
+    // Class for my modified adapter
     public class MyCustomAdapter extends ArrayAdapter<String> {
         // Constructor
         public MyCustomAdapter(Context context, int rowLayoutId, ArrayList<String> myArrayData) {
@@ -102,11 +105,12 @@ public class TrackWorkout extends ListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;
 
+            // If row is not null then set each row to show exercise details
             if(row == null) {
-
                 LayoutInflater inflater = getLayoutInflater();
                 row = inflater.inflate(R.layout.row, parent, false);
 
+                // Set the Text view fields to the corresponding data
                 TextView name = (TextView) row.findViewById(R.id.exerciseName);
                 name.setText(exerciseNames.get(position));
 
@@ -124,6 +128,7 @@ public class TrackWorkout extends ListActivity {
         }
     }
 
+    // Method to clear text from the fields specified in the arguments
     public void clearText(EditText name, EditText sets, EditText reps, EditText weight) {
         name.setText("");
         sets.setText("");

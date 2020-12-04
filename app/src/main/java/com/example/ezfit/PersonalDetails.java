@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.sql.SQLException;
 
 public class PersonalDetails extends AppCompatActivity {
@@ -19,6 +17,7 @@ public class PersonalDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_details);
 
+        // Create connection to database manager
         dbManager = new DatabaseManager(this);
 
         try {
@@ -27,6 +26,7 @@ public class PersonalDetails extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Get the user details from the database
         Cursor cursor = dbManager.getUserDetails();
 
         dbManager.close();
@@ -40,6 +40,7 @@ public class PersonalDetails extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Move to the UpdateDetails activity
                         Intent switchScreens = new Intent(PersonalDetails.this, UpdateDetails.class);
                         startActivity(switchScreens);
                     }
@@ -50,6 +51,7 @@ public class PersonalDetails extends AppCompatActivity {
         Button returnButton = (Button) findViewById(R.id.goBack);
 
         returnButton.setOnClickListener(
+                // Finish the activity
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -63,14 +65,13 @@ public class PersonalDetails extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        dbManager = new DatabaseManager(this);
-
         try {
             dbManager.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        // Retrieve the updated user details from the database
         Cursor cursor = dbManager.getUserDetails();
 
         dbManager.close();

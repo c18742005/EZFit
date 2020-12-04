@@ -64,8 +64,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="20dp"
             android:text="Start"
-            android:textColor="@color/colorPrimaryDark"
-            android:background="@color/colorPrimaryLight" />
+            android:textColor="@color/colorAccent"
+            android:background="@color/success" />
 
         <Button
             android:id="@+id/stop_button"
@@ -76,8 +76,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:text="Stop"
-            android:textColor="@color/colorPrimaryDark"
-            android:background="@color/colorPrimaryLight" />
+            android:textColor="@color/colorAccent"
+            android:background="@color/warning" />
     </LinearLayout>
 
     <Button
@@ -97,5 +97,4 @@
         android:text="@string/goBack"
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorPrimaryLight" />
-
 </LinearLayout>

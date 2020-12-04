@@ -175,8 +175,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="Add Exercise to Workout"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@color/colorPrimaryLight" />
+        android:textColor="@color/colorAccent"
+        android:background="@color/success" />
 
     <Button
         android:id="@+id/save_workout"

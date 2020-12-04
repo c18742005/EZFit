@@ -49,5 +49,4 @@
         android:text="@string/goBack"
         android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorPrimaryLight" />
-
 </LinearLayout>

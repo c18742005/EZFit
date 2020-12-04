@@ -21,14 +21,17 @@ public class RunHistory extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.run_history);
 
+        // Get a connection to the database manager
         dbManager = new DatabaseManager(this);
 
+        // Try open database connection
         try {
             dbManager.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        // Bind adapter to the list view
         myAdapter = new ClientCursorAdapter(this, R.layout.run_row, dbManager.getWorkoutHistory("run"), 0);
         setListAdapter(myAdapter);
 
@@ -41,12 +44,14 @@ public class RunHistory extends ListActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Finish the activity
                         finish();
                     }
                 }
         );
     }
 
+    // Client cursor adapter class to display run details with the list view
     public class ClientCursorAdapter extends ResourceCursorAdapter {
 
         public ClientCursorAdapter(Context context, int layout, Cursor cursor, int flags) {
@@ -55,6 +60,7 @@ public class RunHistory extends ListActivity {
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
+            // Set data to its corresponding text view
             TextView runName = (TextView) view.findViewById(R.id.column1);
             runName.setText(cursor.getString(cursor.getColumnIndex("workout_name")));
 
@@ -70,12 +76,15 @@ public class RunHistory extends ListActivity {
     public void onListItemClick(ListView parent, View v, int position, long id) {
         Cursor data = (Cursor) myAdapter.getItem(position);
 
+        // Create the intent to the new activity and add row ID to extras
         Intent switchScreens = new Intent(RunHistory.this, RunDetails.class);
         switchScreens.putExtra("rowID", id);
 
+        // Start the new activity
         startActivity(switchScreens);
     }
 
+    // Method to control what happens when this activity is resumed
     protected void onResume() {
         super.onResume();
 
@@ -85,6 +94,7 @@ public class RunHistory extends ListActivity {
             e.printStackTrace();
         }
 
+        // Update the details shown by the list view
         myAdapter = new ClientCursorAdapter(this, R.layout.run_row, dbManager.getWorkoutHistory("run"), 0);
         setListAdapter(myAdapter);
 

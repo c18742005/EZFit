@@ -1,7 +1,6 @@
 package com.example.ezfit;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Move to the PersonalDetails activity
                         Intent switchScreens = new Intent(MainActivity.this, PersonalDetails.class);
                         startActivity(switchScreens);
                     }
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Move to the TrackWorkout activity
                         Intent switchScreens = new Intent(MainActivity.this, TrackWorkout.class);
                         startActivity(switchScreens);
                     }
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Move to the TrackRun activity
                         Intent switchScreens = new Intent(MainActivity.this, TrackRun.class);
                         startActivity(switchScreens);
                     }
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Move to the ViewMetrics activity
                         Intent switchScreens = new Intent(MainActivity.this, ViewMetrics.class);
                         startActivity(switchScreens);
                     }
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Move to the ProgressPictures activity
                         Intent switchScreens = new Intent(MainActivity.this, ProgressPictures.class);
                         startActivity(switchScreens);
                     }

@@ -29,7 +29,6 @@ import static com.example.ezfit.DatabaseHelper.KEY_REPS;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_WEIGHT;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_DURATION;
 import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_ID;
-import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_ID;
 import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_USER_ID;
 
 public class DatabaseManager {
@@ -41,6 +40,7 @@ public class DatabaseManager {
         this.context = context;
     }
 
+    // Method to open the database
     public DatabaseManager open() throws SQLException {
         myDatabaseHelper = new DatabaseHelper(context);
         myDatabase = myDatabaseHelper.getWritableDatabase();
@@ -48,7 +48,7 @@ public class DatabaseManager {
         return this;
     }
 
-    //---closes the database--- any activity that uses the dB will need to do this
+    // Method to close the database
     public void close() {
         myDatabaseHelper.close();
     }
@@ -130,12 +130,12 @@ public class DatabaseManager {
         return (int) myDatabase.insert("Workout", null, args);
     }
 
+    // Method to delete a workout from the database by its id
     public boolean deleteWorkout(int workout_id) {
-
         return myDatabase.delete("Workout", KEY_ROWID + "=" + workout_id, null) > 0;
     }
 
-    // Get exercises in a workout
+    // Method to get all exercises in a workout
     public Cursor getExercisesInWorkout(int workout_id) {
         String id = Integer.toString(workout_id);
 
@@ -157,7 +157,7 @@ public class DatabaseManager {
                 null);
     }
 
-    // Add a workout to the database
+    // Method to add a workout to the database
     public long addExercise(int workout_id, String exercise_name, float avg_speed, float distance, int sets, int reps, float weight_lifted, int duration) {
         ContentValues args = new ContentValues();
         args.put(KEY_WORKOUT_ID, workout_id);
@@ -172,24 +172,19 @@ public class DatabaseManager {
         return myDatabase.insert("Exercise_In_Workout", null, args);
     }
 
-    // Remove an exercise from the database by its id
-    public boolean removeExerciseByExerciseID(int exercise_id) {
-
-        return myDatabase.delete("Exercise_In_Workout", KEY_ROWID + "=" + exercise_id, null) > 0;
-    }
-
     // Remove exercises from the database by the workout id that they are in
     public boolean removeExerciseByWorkoutID(int workout_id) {
-
         return myDatabase.delete("Exercise_In_Workout", KEY_WORKOUT_ID + "=" + workout_id, null) > 0;
     }
 
+    // Method to count the number of workouts or runs completed depending on the argument provided
     public int countWorkouts(String workout_type) {
         Cursor cursor = myDatabase.rawQuery("SELECT * FROM Workout WHERE workout_type=?", new String[] {workout_type});
 
         return cursor.getCount();
     }
 
+    // Get the average session time for workout or runs depending on the argument provided
     public int getAverageSessionTime(String workout_type) {
         int totalTime = 0;
         Cursor cursor = myDatabase.rawQuery("SELECT SUM(" + KEY_WORKOUT_DURATION + ") as Time FROM Workout WHERE workout_type=?", new String[] {workout_type});
@@ -198,9 +193,11 @@ public class DatabaseManager {
             totalTime = cursor.getInt(cursor.getColumnIndex("Time"));
         }
 
+        // Return the average time
         if(countWorkouts(workout_type) > 0) {
             return totalTime / countWorkouts(workout_type);
         } else {
+            // if no workouts / runs were done then return 0
             return 0;
         }
     }
