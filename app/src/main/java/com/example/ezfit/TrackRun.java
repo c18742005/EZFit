@@ -37,6 +37,8 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
     private LocationManager locationManager;
     private static final int MY_PERMISSION_GPS = 1;
     private double distance = 0.0;
+    long minTime = 3000;
+    float minDistance = 10;
     private TextView distanceTravelled;
 
     @Override
@@ -202,8 +204,6 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
             ActivityCompat.requestPermissions(TrackRun.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_GPS);
         }
         else { // permission granted so start tracking the user
-            long minTime = 3000;
-            float minDistance = 10;
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, this);
         }
     }
