@@ -1,3 +1,11 @@
+/*
+    Class to control the actions of the ViewPictures activity.
+    Holds the methods to control what happens on creation of the activity and the method to load an
+    image from the phones internal storage.
+    Class has a DB manager connection allowing it to make calls on the database.
+    The class has an inner class ClientCursorAdapter that is a subclass of ResourceCursorAdapter.
+    This inner class allows the population of the list view with data pointed to by a cursor.
+ */
 package com.example.ezfit;
 
 import android.app.ListActivity;
@@ -11,7 +19,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,7 +37,7 @@ public class ViewPictures extends ListActivity {
         // Create connection to database manager
         dbManager = new DatabaseManager(this);
 
-        // Open the database connection
+        // Try open the database connection
         try {
             dbManager.open();
         } catch (SQLException e) {
@@ -64,6 +71,7 @@ public class ViewPictures extends ListActivity {
             super(context, layout, cursor, flags);
         }
 
+        // Method to bind view to the data pointed to by the cursor
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             // Set data to its corresponding text view
@@ -75,6 +83,8 @@ public class ViewPictures extends ListActivity {
         }
     }
 
+    // Reference: The following code is from https://stackoverflow.com/questions/17674634/saving-and-reading-bitmaps-images-from-internal-memory-in-android
+    // The code has been heavily modified from the original to suit my own needs
     // Method to load image from internal storage
     private Bitmap loadImageFromStorage(String path, String imageName)
     {
@@ -87,6 +97,5 @@ public class ViewPictures extends ListActivity {
 
         return image;
     }
-
-
+    // Reference complete
 }

@@ -1,3 +1,8 @@
+/*
+    This is the main activity that opens when the android app is first boot up.
+    Holds the method to control what happens when the class is created and multiple button listeners
+    to change to the different activities depending on which button is clicked.
+ */
 package com.example.ezfit;
 
 import androidx.appcompat.app.AppCompatActivity;

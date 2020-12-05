@@ -1,3 +1,10 @@
+/*
+    Class to control the actions of the ViewMetrics activity.
+    Holds the methods to control what happens on creation and resumption of the activity.
+    Class has a DB manager connection allowing it to make calls on the database. The class uses the
+    DB manager to populate average time and workout/run counts.
+    The class has button click listeners to view workout and run history.
+ */
 package com.example.ezfit;
 
 import android.content.Intent;
@@ -26,7 +33,7 @@ public class ViewMetrics extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Retireve metrics from the database and set them to their respective text views
+        // Retrieve metrics from the database and set them to their respective text views
         TextView numWorkouts = (TextView) findViewById(R.id.num_workouts);
         numWorkouts.setText(Integer.toString(dbManager.countWorkouts("workout")));
 

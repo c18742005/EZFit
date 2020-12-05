@@ -1,3 +1,10 @@
+/*
+    Class to control the actions of the UpdateDetails activity.
+    Holds the methods to control what happens on creation of the activity and to set the text in the
+    text views with data pointed to by a cursor.
+    Class has a button click listener to control what happens when a user saves their details.
+    Class has a DB manager connection allowing it to make calls on the database.
+ */
 package com.example.ezfit;
 
 import android.database.Cursor;
@@ -6,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import java.sql.SQLException;
 

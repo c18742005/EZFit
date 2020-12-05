@@ -1,3 +1,6 @@
+/*
+    Class to manage connection to, disconnection from and all queries on the EZ Fit database (DB)
+ */
 package com.example.ezfit;
 
 import android.content.ContentValues;
@@ -38,6 +41,7 @@ public class DatabaseManager {
     private DatabaseHelper myDatabaseHelper;
     private SQLiteDatabase myDatabase;
 
+    // Class constructor
     public DatabaseManager(Context context) {
         this.context = context;
     }
@@ -55,7 +59,7 @@ public class DatabaseManager {
         myDatabaseHelper.close();
     }
 
-    // Updates the user details in the database
+    // Updates the user details in the database. Takes in arguments to update and calls update on the User table
     public boolean updateUser(String user_name, int user_age, float user_weight, String user_gender, float user_height, float user_bodyfat, float user_bmi) {
         ContentValues args = new ContentValues();
         args.put(KEY_USERNAME, user_name);
@@ -69,7 +73,7 @@ public class DatabaseManager {
         return myDatabase.update("User", args, KEY_ROWID + "=" + 1, null) > 0;
     }
 
-    // Return user details from the database
+    // Return the users details from the database in a cursor
     public Cursor getUserDetails() {
         Cursor mCursor =
                 myDatabase.query(true, "User", new String[] {
@@ -96,7 +100,7 @@ public class DatabaseManager {
         return mCursor;
     }
 
-    // Return workout or run history from the database
+    // Return workout or run history from the database depending on the argument passed
     public Cursor getWorkoutHistory(String workout_type) {
         return myDatabase.query("Workout", new String[] {
                                 KEY_ROWID,
@@ -107,20 +111,21 @@ public class DatabaseManager {
                                 KEY_WORKOUT_NAME
                         },
                         KEY_TYPE + "=?",
-                                new String[]{workout_type},
+                                 new String[]{workout_type},
                         null,
-                        null,
+                         null,
                                 KEY_DATE,
                         null);
     }
 
-    // Add a workout to the database
+    // Add a workout to the database with details passed in as arguments
     public int addWorkout(String workout_type, int workout_duration, String workout_name, String bodyparts) {
-        // Format todays date to be added to the database
+        // Format today's date to be added to the database
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.now();
         String date = dateFormat.format(localDate);
 
+        // Add values to the args
         ContentValues args = new ContentValues();
         args.put(KEY_TYPE, workout_type);
         args.put(KEY_BODY_PARTS, bodyparts);
@@ -129,15 +134,16 @@ public class DatabaseManager {
         args.put(KEY_WORKOUT_NAME, workout_name);
         args.put(KEY_WORKOUT_USER_ID, 1);
 
+        // Insert data into DB
         return (int) myDatabase.insert("Workout", null, args);
     }
 
-    // Method to delete a workout from the database by its id
+    // Method to delete a workout from the database by the workout id
     public boolean deleteWorkout(int workout_id) {
         return myDatabase.delete("Workout", KEY_ROWID + "=" + workout_id, null) > 0;
     }
 
-    // Method to get all exercises in a workout
+    // Method to get all exercises in a workout denoted by the workout ID
     public Cursor getExercisesInWorkout(int workout_id) {
         String id = Integer.toString(workout_id);
 
@@ -159,7 +165,7 @@ public class DatabaseManager {
                 null);
     }
 
-    // Method to add a workout to the database
+    // Method to add a workout to the database with details passed in by arguments
     public long addExercise(int workout_id, String exercise_name, float avg_speed, float distance, int sets, int reps, float weight_lifted, int duration) {
         ContentValues args = new ContentValues();
         args.put(KEY_WORKOUT_ID, workout_id);
@@ -171,6 +177,7 @@ public class DatabaseManager {
         args.put(KEY_EXERCISE_WEIGHT, weight_lifted);
         args.put(KEY_EXERCISE_DURATION, duration);
 
+        // Call insert on the Exercises_In_Workout table and pass in the arguments
         return myDatabase.insert("Exercise_In_Workout", null, args);
     }
 
@@ -183,23 +190,27 @@ public class DatabaseManager {
     public int countWorkouts(String workout_type) {
         Cursor cursor = myDatabase.rawQuery("SELECT * FROM Workout WHERE workout_type=?", new String[] {workout_type});
 
+        // return the number of values returned by the query
         return cursor.getCount();
     }
 
     // Get the average session time for workout or runs depending on the argument provided
     public int getAverageSessionTime(String workout_type) {
-        int totalTime = 0;
-        Cursor cursor = myDatabase.rawQuery("SELECT SUM(" + KEY_WORKOUT_DURATION + ") as Time FROM Workout WHERE workout_type=?", new String[] {workout_type});
-
-        if (cursor.moveToFirst()) {
-            totalTime = cursor.getInt(cursor.getColumnIndex("Time"));
-        }
-
-        // Return the average time
+        // Check if any workouts or runs were done. If there was then calculate the average session time
         if(countWorkouts(workout_type) > 0) {
+            int totalTime = 0;
+
+            // Perform query on the database to get the sum of the durations of all workouts or runs
+            Cursor cursor = myDatabase.rawQuery("SELECT SUM(" + KEY_WORKOUT_DURATION + ") as Time FROM Workout WHERE workout_type=?", new String[] {workout_type});
+
+            // Get the total time from the cursor
+            if (cursor.moveToFirst()) {
+                totalTime = cursor.getInt(cursor.getColumnIndex("Time"));
+            }
+
             return totalTime / countWorkouts(workout_type);
         } else {
-            // if no workouts / runs were done then return 0
+            // if no workouts or runs were done then return 0
             return 0;
         }
     }
@@ -210,13 +221,16 @@ public class DatabaseManager {
         LocalDate localDate = LocalDate.now();
         String date = dateFormat.format(localDate);
 
+        // add values to be added to the args
         ContentValues args = new ContentValues();
         args.put(KEY_IMAGE_NAME, name);
         args.put(KEY_IMAGE_DATE, date);
 
+        // Call the insert statement on the Image table passing the arguments
         myDatabase.insert("Image", null, args);
     }
 
+    // Return all the image names and dates saved in the Image database table
     public Cursor getImages() {
         Cursor mCursor =
                 myDatabase.query("Image", new String[] {

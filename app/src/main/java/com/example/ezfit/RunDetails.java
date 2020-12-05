@@ -1,3 +1,10 @@
+/*
+    Class to control the actions of the RunDetails activity.
+    Holds the method to control what happens on creation of the activity and an inner class,
+    ClientCursorAdapter that's a subclass of ResourceCursorAdapter allowing details to be taken from
+    data pointed to by cursor and set in text views.
+    Class has a DB manager connection allowing it to make calls on the database.
+ */
 package com.example.ezfit;
 
 import android.app.ListActivity;
@@ -82,10 +89,12 @@ public class RunDetails extends ListActivity {
     // Client cursor adapter class to display run details with the list view
     public class ClientCursorAdapter extends ResourceCursorAdapter {
 
+        // Class constructor
         public ClientCursorAdapter(Context context, int layout, Cursor cursor, int flags) {
             super(context, layout, cursor, flags);
         }
 
+        // Method to bind the view to the data pointed to by the cursor
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             // Set data to its corresponding text view

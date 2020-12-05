@@ -1,3 +1,11 @@
+/*
+    Class to control the actions of the ProgressPictures activity.
+    Holds the methods to control what happens on creation of the activity, create unique file names
+    for the images, ensure user has the correct permissions, saving an image to the devices internal
+    storage and what happens when a user takes a picture.
+    Class has a DB manager connection allowing it to make calls on the database and button click
+    listeners to save pictures to the database and view old progress pictures.
+ */
 package com.example.ezfit;
 
 import android.Manifest;
@@ -47,10 +55,12 @@ public class ProgressPictures extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        // Check if app has permission to access the camera. If it does then open the camera
                         if(ContextCompat.checkSelfPermission(ProgressPictures.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); // Intent to start the camera
                             startActivityForResult(intent, CAMERA_REQUEST_CODE);
                         } else {
+                            // App does not have permission so request it
                             ActivityCompat.requestPermissions(ProgressPictures.this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
                         }
                     }
@@ -104,6 +114,7 @@ public class ProgressPictures extends AppCompatActivity {
         );
     }
 
+    // Callback method associated with the user having entered in their permissions
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -118,6 +129,7 @@ public class ProgressPictures extends AppCompatActivity {
         }
     }
 
+    // Callback method associated with the user having taken a picture with the camera
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -133,27 +145,32 @@ public class ProgressPictures extends AppCompatActivity {
         }
     }
 
+    // Reference: The following code is from https://stackoverflow.com/questions/17674634/saving-and-reading-bitmaps-images-from-internal-memory-in-android
+    // Code is not copied directly and has been modified to suit my own needs
     // Method to save an image to the phones internal storage
-    private String saveToInternalStorage(Bitmap image){
+    private String saveToInternalStorage(Bitmap image) {
         String name = generateImageName();
         ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
 
         // path to /data/data/com.example.ezfit/app_images/
         File directory = wrapper.getDir("images", Context.MODE_PRIVATE);
 
-        // Create images directory
+        // Create path to the image
         File myPath = new File(directory, name);
 
+        // Create outputstream to write data to the file
         FileOutputStream outputStream = null;
 
+        // Try write the file to the output stream
         try {
             outputStream = new FileOutputStream(myPath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
+            // Use the compress method on the image to write it to the OutputStream
             image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
+                // Close the output stream
                 outputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -162,21 +179,9 @@ public class ProgressPictures extends AppCompatActivity {
 
         return directory.getAbsolutePath();
     }
+    // Reference complete
 
-    // Method to load image from internal storage
-    private void loadImageFromStorage(String path, String imageName)
-    {
-        try {
-            File file = new File(path, imageName);
-            Bitmap image = BitmapFactory.decodeStream(new FileInputStream(file));
-            ImageView thumbNail = (ImageView) findViewById(R.id.imageView);
-            thumbNail.setImageBitmap(image);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Method to create a file name for each image
+    // Method to create a unique file name for each image
     private String generateImageName() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageName = "jpg_" + timeStamp + "_.jpg";
@@ -191,10 +196,13 @@ public class ProgressPictures extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Save the image name to the database
         dbManager.addImage(imageName);
 
+        // Close database connection
         dbManager.close();
 
+        // Return the image name
         return imageName;
     }
 }

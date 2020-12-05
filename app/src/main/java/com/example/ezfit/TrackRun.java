@@ -1,3 +1,10 @@
+/*
+    Class to control the actions of the TrackRun activity.
+    Holds the methods to control what happens on creation, resumption and pausing of the activity.
+    Class has a DB manager connection allowing it to make calls on the database and a button click
+    listener to save the run details to the database.
+    Class also holds the code for the use of the stopwatch timer and the gps tracker.
+ */
 package com.example.ezfit;
 
 import android.Manifest;
@@ -159,7 +166,7 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                // Get the number of hours, minutes and seconds a person has been running
+                // Convert seconds to hours, minutes and seconds
                 int hours = seconds / 3600;
                 int mins = (seconds % 3600) / 60;
                 int secs = seconds % 60;
@@ -188,11 +195,9 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
         // Check if activity has the permission to access the gps tracking function of the phone
         // If not then request the permissions
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
             ActivityCompat.requestPermissions(TrackRun.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_GPS);
         }
         else { // permission granted so start tracking the user
-
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, this);
         }
     }
@@ -201,7 +206,7 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
     public void onLocationChanged(Location location) {
         // If location is not empty and user wants their distance tracked then
         // Increment distance by 10 meters ech time a change in location is detected
-        if (location != null && isRunning == true) {
+        if (location != null && isRunning) {
             distance += 0.01;
 
             // Format the distance to a string and set it to the text view

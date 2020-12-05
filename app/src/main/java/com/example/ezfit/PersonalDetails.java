@@ -1,3 +1,9 @@
+/*
+    Class to control the actions of the PersonalDetails activity.
+    Holds the methods to control what happens on creation of the activity, resumption of the
+    activity and a method to set the text view to the attributes held in the cursor.
+    Class has a DB manager connection allowing it to make calls on the database.
+ */
 package com.example.ezfit;
 
 import android.content.Intent;
@@ -31,6 +37,7 @@ public class PersonalDetails extends AppCompatActivity {
 
         dbManager.close();
 
+        // Set the text in the text views
         setAttributes(cursor);
 
         // Code to control what happens when update details button is clicked

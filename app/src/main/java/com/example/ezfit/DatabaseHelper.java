@@ -1,3 +1,8 @@
+/*
+    Helper subclass of SQLiteOpenHelper class to manage the creation of the EZ Fit database (DB)
+    Contains strings and method to create the DB tables and the method to control what happens on a
+    DB upgrade
+ */
 package com.example.ezfit;
 
 import android.content.ContentValues;
@@ -96,9 +101,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Method called when DB is created for the first time
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        // Arguments to populate the User table when its first created
         ContentValues args = new ContentValues();
         args.put(KEY_USERNAME, "Unknown");
         args.put(KEY_AGE, 0);
@@ -118,7 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // If you want to change the structure of your database
+        // Method for changing structure of DB on an upgrade
 
     }
 }

@@ -1,3 +1,12 @@
+/*
+    Class to control the actions of the TrackWorkout activity.
+    Holds the methods to control what happens on creation of the activity and to clear the text in
+    the edit text fields.
+    Class has button click listeners to control what happens when a user adds an exercise to the
+    workout and saves the workout.
+    Class also has MyCustomAdapter class which is a subclass of ArrayAdapter that allows list view
+    to be populated with data from an array list.
+ */
 package com.example.ezfit;
 
 import android.app.ListActivity;
@@ -96,11 +105,12 @@ public class TrackWorkout extends ListActivity {
 
     // Class for my modified adapter
     public class MyCustomAdapter extends ArrayAdapter<String> {
-        // Constructor
+        // Class Constructor
         public MyCustomAdapter(Context context, int rowLayoutId, ArrayList<String> myArrayData) {
             super(context, rowLayoutId, myArrayData);
         }
 
+        // Method to get a View that displays data at a specified position in the data set.
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = convertView;

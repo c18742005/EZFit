@@ -1,3 +1,9 @@
+/*
+    Class to control the actions of the SaveWorkout activity.
+    Holds the method to control what happens on creation of the activity.
+    Class has a DB manager connection allowing it to make calls on the database and a button click
+    listener to save the workout details to the database.
+ */
 package com.example.ezfit;
 
 import android.os.Bundle;
