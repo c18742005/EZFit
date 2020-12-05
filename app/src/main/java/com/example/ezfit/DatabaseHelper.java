@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_ROWID = "_id";
 
+    // Constants for the user table
     public static final String KEY_USERNAME = "user_name";
     public static final String KEY_AGE = "user_age";
     public static final String KEY_WEIGHT = "user_weight";
@@ -16,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_BODY_FAT = "user_bodyfat";
     public static final String KEY_BMI = "user_bmi";
 
+    // Constants for the workout table
     public static final String KEY_TYPE = "workout_type";
     public static final String KEY_BODY_PARTS = "bodyparts";
     public static final String KEY_WORKOUT_DURATION = "workout_duration";
@@ -23,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_WORKOUT_NAME = "workout_name";
     public static final String KEY_WORKOUT_USER_ID = "workout_user_id";
 
+    // Constants for the exercise table
     public static final String KEY_EXERCISE_NAME = "exercise_name";
     public static final String KEY_AVG_SPEED = "exercise_avgspeed";
     public static final String KEY_DISTANCE = "exercise_distance";
@@ -31,7 +34,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_EXERCISE_WEIGHT = "exercise_weight";
     public static final String KEY_EXERCISE_DURATION = "exercise_duration";
     public static final String KEY_WORKOUT_ID = "exercise_workout_id";
-    public static final String KEY_EXERCISE_ID = "exercise_exercise_id";
+
+    // Constants for the image name table
+    public static final String KEY_IMAGE_NAME = "image_name";
+    public static final String KEY_IMAGE_DATE = "image_date";
 
     public static final String DATABASE_NAME = "EZFit";
     public static final int DATABASE_VERSION = 1;
@@ -78,6 +84,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "   FOREIGN KEY (exercise_workout_id)" +
                     "   REFERENCES Workout(_id));";
 
+    // This is the string containing the SQL database create statement for the images table
+    private static final String DATABASE_CREATE_IMAGE_TABLE =
+            "create table Image"  +
+                    " ( _id integer primary key autoincrement, " +
+                    "image_name text not null," +
+                    "image_date text);";
+
     // constructor for the dB helper class
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -100,6 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert("User", null, args);
         db.execSQL(DATABASE_CREATE_WORKOUT_TABLE);
         db.execSQL(DATABASE_CREATE_EXERCISE_IN_WORKOUT_TABLE);
+        db.execSQL(DATABASE_CREATE_IMAGE_TABLE);
     }
 
     @Override

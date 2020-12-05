@@ -42,6 +42,15 @@
         android:background="@color/colorPrimaryLight" />
 
     <Button
+        android:id="@+id/viewPhotos"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="View Progress Pictures"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@color/colorPrimaryLight" />
+
+    <Button
         android:id="@id/goBack"
         android:layout_width="300dp"
         android:layout_height="wrap_content"

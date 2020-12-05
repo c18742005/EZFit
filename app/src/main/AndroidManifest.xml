@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -85,6 +86,12 @@
         <activity android:name=".RunDetails">
             <intent-filter>
                 <action android:name=".RunDetails" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ViewPictures">
+            <intent-filter>
+                <action android:name=".ViewPictures" />
             </intent-filter>
         </activity>
 

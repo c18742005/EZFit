@@ -30,6 +30,8 @@ import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_WEIGHT;
 import static com.example.ezfit.DatabaseHelper.KEY_EXERCISE_DURATION;
 import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_ID;
 import static com.example.ezfit.DatabaseHelper.KEY_WORKOUT_USER_ID;
+import static com.example.ezfit.DatabaseHelper.KEY_IMAGE_NAME;
+import static com.example.ezfit.DatabaseHelper.KEY_IMAGE_DATE;
 
 public class DatabaseManager {
     Context context;
@@ -200,5 +202,39 @@ public class DatabaseManager {
             // if no workouts / runs were done then return 0
             return 0;
         }
+    }
+
+    public void addImage(String name) {
+        // Format todays date to be added to the database
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.now();
+        String date = dateFormat.format(localDate);
+
+        ContentValues args = new ContentValues();
+        args.put(KEY_IMAGE_NAME, name);
+        args.put(KEY_IMAGE_DATE, date);
+
+        myDatabase.insert("Image", null, args);
+    }
+
+    public Cursor getImages() {
+        Cursor mCursor =
+                myDatabase.query("Image", new String[] {
+                                KEY_ROWID,
+                                KEY_IMAGE_NAME,
+                                KEY_IMAGE_DATE
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
+
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+
+        return mCursor;
     }
 }
