@@ -20,7 +20,6 @@ import java.sql.SQLException;
 
 public class WorkoutDetails extends ListActivity {
     private DatabaseManager dbManager;
-    private ClientCursorAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class WorkoutDetails extends ListActivity {
         final int workoutID = (int) getIntent().getExtras().getLong("rowID");
 
         // Create and set the cursor adapter
-        myAdapter = new ClientCursorAdapter(this, R.layout.workout_row, dbManager.getExercisesInWorkout(workoutID), 0);
+        ClientCursorAdapter myAdapter = new ClientCursorAdapter(this, R.layout.workout_row, dbManager.getExercisesInWorkout(workoutID), 0);
         setListAdapter(myAdapter);
 
         dbManager.close();

@@ -60,7 +60,7 @@ public class DatabaseManager {
     }
 
     // Updates the user details in the database. Takes in arguments to update and calls update on the User table
-    public boolean updateUser(String user_name, int user_age, float user_weight, String user_gender, float user_height, float user_bodyfat, float user_bmi) {
+    public void updateUser(String user_name, int user_age, float user_weight, String user_gender, float user_height, float user_bodyfat, float user_bmi) {
         ContentValues args = new ContentValues();
         args.put(KEY_USERNAME, user_name);
         args.put(KEY_AGE, user_age);
@@ -70,7 +70,7 @@ public class DatabaseManager {
         args.put(KEY_BODY_FAT, user_bodyfat);
         args.put(KEY_BMI, user_bmi);
 
-        return myDatabase.update("User", args, KEY_ROWID + "=" + 1, null) > 0;
+        myDatabase.update("User", args, KEY_ROWID + "=" + 1, null);
     }
 
     // Return the users details from the database in a cursor
@@ -139,8 +139,8 @@ public class DatabaseManager {
     }
 
     // Method to delete a workout from the database by the workout id
-    public boolean deleteWorkout(int workout_id) {
-        return myDatabase.delete("Workout", KEY_ROWID + "=" + workout_id, null) > 0;
+    public void deleteWorkout(int workout_id) {
+        myDatabase.delete("Workout", KEY_ROWID + "=" + workout_id, null);
     }
 
     // Method to get all exercises in a workout denoted by the workout ID
@@ -166,7 +166,7 @@ public class DatabaseManager {
     }
 
     // Method to add a workout to the database with details passed in by arguments
-    public long addExercise(int workout_id, String exercise_name, float avg_speed, float distance, int sets, int reps, float weight_lifted, int duration) {
+    public void addExercise(int workout_id, String exercise_name, float avg_speed, float distance, int sets, int reps, float weight_lifted, int duration) {
         ContentValues args = new ContentValues();
         args.put(KEY_WORKOUT_ID, workout_id);
         args.put(KEY_EXERCISE_NAME, exercise_name);
@@ -178,12 +178,12 @@ public class DatabaseManager {
         args.put(KEY_EXERCISE_DURATION, duration);
 
         // Call insert on the Exercises_In_Workout table and pass in the arguments
-        return myDatabase.insert("Exercise_In_Workout", null, args);
+        myDatabase.insert("Exercise_In_Workout", null, args);
     }
 
     // Remove exercises from the database by the workout id that they are in
-    public boolean removeExerciseByWorkoutID(int workout_id) {
-        return myDatabase.delete("Exercise_In_Workout", KEY_WORKOUT_ID + "=" + workout_id, null) > 0;
+    public void removeExerciseByWorkoutID(int workout_id) {
+        myDatabase.delete("Exercise_In_Workout", KEY_WORKOUT_ID + "=" + workout_id, null);
     }
 
     // Method to count the number of workouts or runs completed depending on the argument provided

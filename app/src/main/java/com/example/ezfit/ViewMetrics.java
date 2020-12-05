@@ -41,10 +41,10 @@ public class ViewMetrics extends AppCompatActivity {
         numRuns.setText(Integer.toString(dbManager.countWorkouts("run")));
 
         TextView avgWorkoutTime = (TextView) findViewById(R.id.avg_workout_time);
-        avgWorkoutTime.setText(Integer.toString(dbManager.getAverageSessionTime("workout")) + " minutes");
+        avgWorkoutTime.setText(dbManager.getAverageSessionTime("workout") + " minutes");
 
         TextView avgRunTime = (TextView) findViewById(R.id.avg_run_time);
-        avgRunTime.setText(Integer.toString(dbManager.getAverageSessionTime("run")) + " minutes");
+        avgRunTime.setText(dbManager.getAverageSessionTime("run") + " minutes");
 
         dbManager.close();
 
@@ -109,10 +109,10 @@ public class ViewMetrics extends AppCompatActivity {
         numRuns.setText(Integer.toString(dbManager.countWorkouts("run")));
 
         TextView avgWorkoutTime = (TextView) findViewById(R.id.avg_workout_time);
-        avgWorkoutTime.setText(Integer.toString(dbManager.getAverageSessionTime("workout")) + " minutes");
+        avgWorkoutTime.setText(dbManager.getAverageSessionTime("workout") + " minutes");
 
         TextView avgRunTime = (TextView) findViewById(R.id.avg_run_time);
-        avgRunTime.setText(Integer.toString(dbManager.getAverageSessionTime("run")) + " minutes");
+        avgRunTime.setText(dbManager.getAverageSessionTime("run") + " minutes");
 
         dbManager.close();
     }

@@ -84,8 +84,6 @@ public class RunHistory extends ListActivity {
 
     // when a list item is clicked open a new activity and display the run details
     public void onListItemClick(ListView parent, View v, int position, long id) {
-        Cursor data = (Cursor) myAdapter.getItem(position);
-
         // Create the intent to the new activity and add row ID to extras
         Intent switchScreens = new Intent(RunHistory.this, RunDetails.class);
         switchScreens.putExtra("rowID", id);

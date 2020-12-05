@@ -35,8 +35,6 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
 
     // Variables needed for the gps tracker
     private LocationManager locationManager;
-    private long minTime = 3000;
-    private float minDistance = 10;
     private static final int MY_PERMISSION_GPS = 1;
     private double distance = 0.0;
     private TextView distanceTravelled;
@@ -70,36 +68,42 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Get the duration of the run in minutes and the average speed
-                        int duration = seconds / 60;
+                        // If run was being recorded then save the run
+                        if(seconds > 0) {
+                            // Get the duration of the run in minutes and the average speed
+                            int duration = seconds / 60;
 
-                        // If duration is 0 minutes then increment to 1
-                        if (duration == 0) {
-                            duration = 1;
+                            // If duration is 0 minutes then increment to 1
+                            if (duration == 0) {
+                                duration = 1;
+                            }
+
+                            // Get the average speed of the run
+                            float avgSpeed = (float) distance / duration;
+
+                            // Get a connection to the DB manager
+                            dbManager = new DatabaseManager(TrackRun.this);
+
+                            try {
+                                dbManager.open();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+
+                            // Add the run to the database
+                            int id = dbManager.addWorkout("run", duration, "Run", "Cardiovascular");
+
+                            // Add run details to the database
+                            dbManager.addExercise(id, "run", avgSpeed, (float) distance, 0,0,0, duration);
+
+                            dbManager.close();
+
+                            Toast.makeText(getBaseContext(), "Run Saved Successfully", Toast.LENGTH_LONG).show();
+                            finish();
+                        } else {
+                            // else start button was never clicked so no run recorded. Do not save the run
+                            Toast.makeText(TrackRun.this, "No run was completed. You must click start before saving your run.", Toast.LENGTH_LONG).show();
                         }
-
-                        // Get the average speed of the run
-                        float avgSpeed = (float) distance / duration;
-
-                        // Get a connection to the DB manager
-                        dbManager = new DatabaseManager(TrackRun.this);
-
-                        try {
-                            dbManager.open();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        // Add the run to the database
-                        int id = dbManager.addWorkout("run", duration, "Run", "Cardiovascular");
-
-                        // Add run details to the database
-                        dbManager.addExercise(id, "run", avgSpeed, (float) distance, 0,0,0, duration);
-
-                        dbManager.close();
-
-                        Toast.makeText(getBaseContext(), "Run Saved Successfully", Toast.LENGTH_LONG).show();
-                        finish();
                     }
                 }
         );
@@ -198,6 +202,8 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
             ActivityCompat.requestPermissions(TrackRun.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_GPS);
         }
         else { // permission granted so start tracking the user
+            long minTime = 3000;
+            float minDistance = 10;
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, this);
         }
     }

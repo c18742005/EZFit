@@ -20,6 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class TrackWorkout extends ListActivity {
@@ -74,17 +76,23 @@ public class TrackWorkout extends ListActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Intent to move to TrakWorkout activity
-                        Intent switchScreens = new Intent(TrackWorkout.this, SaveWorkout.class);
+                        // If there are exercises in the workout then save the workout
+                        if(exerciseNames.size() > 0) {
+                            // Intent to move to TrakWorkout activity
+                            Intent switchScreens = new Intent(TrackWorkout.this, SaveWorkout.class);
 
-                        // Add the array lists to the extras to be sent to the new activity
-                        switchScreens.putExtra("names", exerciseNames);
-                        switchScreens.putExtra("sets", exerciseSets);
-                        switchScreens.putExtra("reps", exerciseReps);
-                        switchScreens.putExtra("weights", exerciseWeights);
+                            // Add the array lists to the extras to be sent to the new activity
+                            switchScreens.putExtra("names", exerciseNames);
+                            switchScreens.putExtra("sets", exerciseSets);
+                            switchScreens.putExtra("reps", exerciseReps);
+                            switchScreens.putExtra("weights", exerciseWeights);
 
-                        // Start the new activity
-                        startActivity(switchScreens);
+                            // Start the new activity
+                            startActivity(switchScreens);
+                        } else {
+                            // No exercises in workout so don't save the workout
+                            Toast.makeText(TrackWorkout.this, "Save failed: There are no exercises in this workout. Add exercises before saving", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
         );

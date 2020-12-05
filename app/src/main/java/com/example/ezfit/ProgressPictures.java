@@ -37,7 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ProgressPictures extends AppCompatActivity {
-    private DatabaseManager dbManager;
     private static final int CAMERA_PERMISSION_CODE = 1;
     private static final int CAMERA_REQUEST_CODE = 2;
     ImageView image;
@@ -148,7 +147,7 @@ public class ProgressPictures extends AppCompatActivity {
     // Reference: The following code is from https://stackoverflow.com/questions/17674634/saving-and-reading-bitmaps-images-from-internal-memory-in-android
     // Code is not copied directly and has been modified to suit my own needs
     // Method to save an image to the phones internal storage
-    private String saveToInternalStorage(Bitmap image) {
+    private void saveToInternalStorage(Bitmap image) {
         String name = generateImageName();
         ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
 
@@ -176,8 +175,6 @@ public class ProgressPictures extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-        return directory.getAbsolutePath();
     }
     // Reference complete
 
@@ -187,7 +184,7 @@ public class ProgressPictures extends AppCompatActivity {
         String imageName = "jpg_" + timeStamp + "_.jpg";
 
         // Create connection to database manager
-        dbManager = new DatabaseManager(this);
+        DatabaseManager dbManager = new DatabaseManager(this);
 
         // Open the database connection
         try {

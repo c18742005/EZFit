@@ -86,8 +86,6 @@ public class WorkoutHistory extends ListActivity {
 
     // when a list item is clicked open a new activity and display the workout details
     public void onListItemClick(ListView parent, View v, int position, long id) {
-        Cursor data = (Cursor) myAdapter.getItem(position);
-
         // Create intent to switch to new activity and add row id to extras
         Intent switchScreens = new Intent(WorkoutHistory.this, WorkoutDetails.class);
         switchScreens.putExtra("rowID", id);

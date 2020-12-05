@@ -25,9 +25,7 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 public class ViewPictures extends ListActivity {
-    private DatabaseManager dbManager;
     private Bitmap image = null;
-    private ClientCursorAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +33,7 @@ public class ViewPictures extends ListActivity {
         setContentView(R.layout.view_pictures);
 
         // Create connection to database manager
-        dbManager = new DatabaseManager(this);
+        DatabaseManager dbManager = new DatabaseManager(this);
 
         // Try open the database connection
         try {
@@ -45,7 +43,7 @@ public class ViewPictures extends ListActivity {
         }
 
         // Create and Bind adapter to the list view
-        myAdapter = new ClientCursorAdapter(this, R.layout.view_pictures_row, dbManager.getImages(), 0);
+        ClientCursorAdapter myAdapter = new ClientCursorAdapter(this, R.layout.view_pictures_row, dbManager.getImages(), 0);
         setListAdapter(myAdapter);
 
         dbManager.close();
@@ -76,7 +74,7 @@ public class ViewPictures extends ListActivity {
         public void bindView(View view, Context context, Cursor cursor) {
             // Set data to its corresponding text view
             ImageView displayImage = (ImageView) view.findViewById(R.id.display_image);
-            displayImage.setImageBitmap(loadImageFromStorage("/data/data/com.example.ezfit/app_images", cursor.getString(cursor.getColumnIndex("image_name"))));
+            displayImage.setImageBitmap(loadImageFromStorage(cursor.getString(cursor.getColumnIndex("image_name"))));
 
             TextView imageDate = (TextView) view.findViewById(R.id.imageDate);
             imageDate.setText(cursor.getString(cursor.getColumnIndex("image_date")));
@@ -86,10 +84,10 @@ public class ViewPictures extends ListActivity {
     // Reference: The following code is from https://stackoverflow.com/questions/17674634/saving-and-reading-bitmaps-images-from-internal-memory-in-android
     // The code has been heavily modified from the original to suit my own needs
     // Method to load image from internal storage
-    private Bitmap loadImageFromStorage(String path, String imageName)
+    private Bitmap loadImageFromStorage(String imageName)
     {
         try {
-            File file = new File(path, imageName);
+            File file = new File("/data/data/com.example.ezfit/app_images", imageName);
             image = BitmapFactory.decodeStream(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
