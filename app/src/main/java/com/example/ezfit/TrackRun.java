@@ -164,6 +164,7 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
         }
     }
 
+    // Reference: The following code is from https://www.geeksforgeeks.org/how-to-create-a-stopwatch-app-using-android-studio/
     // Method to control the stopwatch
     private void runTimer() {
         final TextView time = (TextView) findViewById(R.id.timer);
@@ -193,6 +194,7 @@ public class TrackRun extends AppCompatActivity implements LocationListener {
             }
         });
     }
+    // Reference complete
 
     // Method to set up teh location tracking service
     private void setUpLocation() {
